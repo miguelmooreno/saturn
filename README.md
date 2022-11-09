@@ -1,6 +1,6 @@
 # What is Saturn?
 
-Saturn is a logger that pulls IP, IP Information and Much More.
+Saturn is a logger that pulls IP Address, IP Information and Much More.
 
 ## Installation
 
