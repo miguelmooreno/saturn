@@ -106,7 +106,7 @@ os.system("pause")
 
 #This is not the best logger, as it only pulls IP and some other stuff, but it's a start.
 #I will be updating this logger in the future, so stay tuned.
-#If you have any questions, feel free to DM me on Discord: Birdy#9457
+#If you have any questions, feel free to DM me on Discord: Birdy#8020
 
 
 #Future Updates:
