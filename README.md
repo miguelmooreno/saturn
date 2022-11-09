@@ -1,6 +1,7 @@
-# What is Saturn?
+# ⚠READ BEFORE DOING ANYTHING⚠
 
 Saturn is a logger that pulls IP Address, IP Information and Much More.
+I am not responsible for any damages caused by Saturn, this is an open-source project i made to test my own skills. Please do not use this for any malicious acts, hacking or doxxing.
 
 ## Installation
 
