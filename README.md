@@ -2,7 +2,7 @@
 I am not responsible for any damages caused by Saturn, this is an open-source project i made to test my own skills. Please do not use this for any malicious acts, hacking or doxxing.
 ## Features
 - IP Logging
-- Screenshot Capture
+- Key Logging
 - IP Information
 - HWID 
 - ~~Webcame Capture~~ (Soon)
